@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="225.556" height="225.556" viewBox="0 0 225.556 225.556">
+  <defs>
+    <filter id="Ellipse_76" x="0" y="0" width="225.556" height="225.556" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#46d546"/>
+      <stop offset="1" stop-color="#46d5a4"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_15924" data-name="Group 15924" transform="translate(-853.21 -2730.206)">
+    <g transform="matrix(1, 0, 0, 1, 853.21, 2730.21)" filter="url(#Ellipse_76)">
+      <circle id="Ellipse_76-2" data-name="Ellipse 76" cx="54.278" cy="54.278" r="54.278" transform="translate(58.5 55.5)" fill="#fff"/>
+    </g>
+    <path id="icons8_technical_support" d="M23,4C10.477,4,3,14.28,3,31.5v5A5.5,5.5,0,0,0,8.5,42h9.334a10.5,10.5,0,0,0,12.328,0H39.5A5.5,5.5,0,0,0,45,36.5v-5C45,12.512,35.954,6.938,30.641,6.525A11.258,11.258,0,0,0,23,4Zm5.9,13.109c1.645.418,6.077,2.127,6.1,8.351,0,.043,0,4.039,0,4.039A4.505,4.505,0,0,1,30.5,34H28.66a3.5,3.5,0,1,0,0,3H30.5c.2,0,.4-.014.592-.029C29.159,39.483,26.676,41,24,41c-5.685,0-10.514-6.833-11-15.56V22.5A1.5,1.5,0,0,1,14.5,21C14.9,21,23.879,20.953,28.9,17.109Zm9.16,5.9A4,4,0,0,1,42,27v2a4,4,0,0,1-4,4h-.871A7.443,7.443,0,0,0,38,29.5S38.046,24.627,38.063,23.006ZM19,25a2,2,0,1,0,2,2A2,2,0,0,0,19,25Zm10,0a2,2,0,1,0,2,2A2,2,0,0,0,29,25Z" transform="translate(942 2815.626)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

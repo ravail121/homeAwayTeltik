@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="225.556" height="225.556" viewBox="0 0 225.556 225.556">
+  <defs>
+    <filter id="Ellipse_73" x="0" y="0" width="225.556" height="225.556" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="19.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#46d546"/>
+      <stop offset="1" stop-color="#46d5a4"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_1572" data-name="Group 1572" transform="translate(-1104.601 -9779.485)">
+    <g transform="matrix(1, 0, 0, 1, 1104.6, 9779.49)" filter="url(#Ellipse_73)">
+      <ellipse id="Ellipse_73-2" data-name="Ellipse 73" cx="54.278" cy="54.278" rx="54.278" ry="54.278" transform="translate(58.5 55.5)" fill="#fff"/>
+    </g>
+    <path id="icons8_watch_your_step" d="M42.051,5a6.8,6.8,0,1,0,6.8,6.8A6.831,6.831,0,0,0,42.051,5Zm0,3.888A2.916,2.916,0,1,1,39.135,11.8,2.888,2.888,0,0,1,42.051,8.888ZM28.262,14.537a5.734,5.734,0,0,0-2.673.85L16.175,21.34l-.547.3-.243.607-3.1,7.593L6.638,23.83,3.844,26.5l5.588,5.953A3.949,3.949,0,0,0,15.871,31.3l2.916-7.046,8.868-5.528a1.9,1.9,0,0,1,2.308.182l1.944,1.761,2.976,6.5.3.729.729.243,8.14,3.4,1.458-3.584-7.411-3.1-2.794-6.2-.182-.364-.3-.3-2.248-2a5.837,5.837,0,0,0-3.4-1.458A6.081,6.081,0,0,0,28.262,14.537Zm2.247,7.046-1.822.972-8.2,4.191-1.336.729.3,1.458,1.822,8.079-8.929,7.714,2.49,2.977,8.99-7.714A3.961,3.961,0,0,0,25.1,36.161L23.585,29.54l4.981-2.551,1.64,3.766.182.486.425.3,7.714,6.074,2.369-3.1-7.289-5.649L31.36,23.527ZM19.7,43.875v3.888h7.775V43.875Z" transform="translate(1191.029 9861.867)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

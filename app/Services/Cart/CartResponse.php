@@ -187,6 +187,7 @@ class CartResponse extends CustomerController
         $this->coupon();
         
         $this->calTaxes();
+       // dd($this->prices);
         $price[] = ($this->prices) ? array_sum($this->prices) : 0;
         $price[] = ($this->regulatory) ? array_sum($this->regulatory) : 0;
         $price[] = ($this->couponAmount);
@@ -349,13 +350,16 @@ class CartResponse extends CustomerController
     {
         $this->taxes = [];
         $this->getSession();
+        
         if ($this->cartItems != null) {
             if (count($this->cartItems['order_groups'])) {
                 foreach ($this->cartItems['order_groups'] as $cart) {
+                    
                     $this->taxes[] = number_format($this->calTaxableItems($cart, $taxId), 2);
                 }
             }
         }
+       // dd($this->cartItems['order_groups']);
         $taxes = ($this->taxes) ? array_sum($this->taxes) : 0;
         $taxId ? session(['tax_total' => $taxes]) : session(['tax_total' => 0]);
         $taxId ? $this->totalPrice() : null; // to add tax to total without refresh
@@ -388,7 +392,6 @@ class CartResponse extends CustomerController
      */
     public function calTaxableItems($cart, $taxId)
     {
-        
         $stateId = '';
         if (!$taxId) {
             if (session('cart')['business_verification'] && isset(session('cart')['business_verification']['billing_state_id'])) {
@@ -397,16 +400,17 @@ class CartResponse extends CustomerController
                 session(['tax_id' => session('cart')['customer']['billing_state_id']]);
             }
         } else {
-            
             session(['tax_id' => $taxId]);
         }
         $stateId = ['tax_id' => session('tax_id')];
         $taxRate    = $this->taxrate($stateId);
+        
         if (!session('taxrate') || session('taxrate') && isset($taxRate['tax_rate']) && session('taxrate') != $taxRate['tax_rate']) {
             $taxRate    = $this->taxrate($stateId);
             session(['taxrate' => isset($taxRate['tax_rate']) ? $taxRate['tax_rate'] : 0]);
         }
         $taxPercentage  = session('taxrate') / 100;
+        
         if(isset($cart['status']) && $cart['status'] == "SamePlan"){
             //Addon
             $addons = $this->addTaxesToAddons($cart, $taxPercentage);
@@ -421,6 +425,7 @@ class CartResponse extends CustomerController
         }
         //Devices
         $devices        = $this->addTaxesDevices($cart, $cart['device'], $taxPercentage);
+       // dd($devices);
         //Sims
         $sims           = $this->addTaxesSims($cart, $cart['sim'], $taxPercentage);
         //Plans
@@ -464,13 +469,14 @@ class CartResponse extends CustomerController
         $itemTax = [];
         if ($item && $item['taxable']) {
             $amount = $cart['plan'] != null ? $item['amount_w_plan'] : $item['amount'];
+           
             if (session('couponAmount')) {
                 $discounted = $this->getCouponPrice(session('couponAmount'), $item, 2);
+                //dd(session('couponAmount'));
                 $amount = $amount > $discounted ? $amount - $discounted : 0;
             }
             $itemTax[] = $taxPercentage * $amount;
         }
-  
         return !empty($itemTax) ? array_sum($itemTax) : 0;
     }
 
@@ -626,6 +632,7 @@ class CartResponse extends CustomerController
     protected function getCouponPrice($couponData, $item, $itemType)
     {
         $productDiscount = 0;
+        $dataArray=[];
         foreach($couponData as $coupon) {
             $type = $coupon[ 'coupon_type' ];
             if ( $type == 1 ) { // Applied to all
@@ -637,8 +644,9 @@ class CartResponse extends CustomerController
             }
             if ( count( $appliedTo ) ) {
                 foreach ( $appliedTo as $product ) {
-                    if ( $product[ 'order_product_type' ] == $itemType && $product[ 'order_product_id' ] == $item[ 'id' ] ) {
+                    if ( $product[ 'order_product_type' ] == $itemType && $product[ 'order_product_id' ] == $item[ 'id' ] && (!in_array($item[ 'id' ], $dataArray)) ) {
                         $productDiscount += $product[ 'discount' ];
+                        array_push($dataArray,$item[ 'id' ]);
                     }
                 }
             }

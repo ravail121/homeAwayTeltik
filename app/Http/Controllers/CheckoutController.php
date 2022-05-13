@@ -650,7 +650,12 @@ class CheckoutController extends Controller
      */
     public function calculateTax(CartResponse $cart, Request $request)
     {
-        return $cart->calTaxes($request->tax_id);
+        if(session('taxrate')==0){
+            return $cart->calTaxes($request->tax_id); 
+        }else{
+            return (session('cart')['subtotalPrice']+session('cart')['coupons'])*(session('taxrate')/100);
+        }
+        //return isset(session('taxrate')) ? (session('cart')['subtotalPrice']+session('cart')['coupons'])*(session('taxrate')/100) : $cart->calTaxes($request->tax_id);
     }
 
     /**

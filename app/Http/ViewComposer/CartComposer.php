@@ -27,11 +27,13 @@ class CartComposer
             'subtotalPrice' => $this->cart->subTotalPrice(),
             'activeGroupId' => $this->cart->getActiveGroupId(),
             'monthlyCharge' => $this->cart->calMonthlyCharge(),
-            'taxes'         => isset(session('cart')['subtotalPrice']) ? (session('cart')['subtotalPrice']+session('cart')['coupons'])*(session('taxrate')/100): 0,
+            'taxes'         => $this->cart->calTaxes(),
             'regulatory'    => $this->cart->calRegulatory(),
             'shippingFee'   => $this->cart->getShippingFee(),
             'coupons'       => isset($this->cart->coupon()['total']) ? $this->cart->coupon()['total'] : 0,
         ];
+
+        //dd(static::$cartData);
 
         $view->with(static::$cartData);
     }

@@ -132,6 +132,7 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+        
         if($request->customer_card == 'customer_card' || !$request->customer_card){
 
             $validation = $this->validator($request);
@@ -147,7 +148,7 @@ class CheckoutController extends Controller
             }
         }
         $order = $this->requestConnection('order?order_hash='.session('hash')['order_hash'].'&paid_monthly_invoice='.session('paid_monthly_invoice'));
-
+        //dd($order);
         if (count($order['order_groups'])) {
             session(['cart' => $order]);
         }
@@ -650,12 +651,10 @@ class CheckoutController extends Controller
      */
     public function calculateTax(CartResponse $cart, Request $request)
     {
-        if(session('taxrate')==0){
+       
             return $cart->calTaxes($request->tax_id); 
-        }else{
-            return (session('cart')['subtotalPrice']+session('cart')['coupons'])*(session('taxrate')/100);
-        }
-        //return isset(session('taxrate')) ? (session('cart')['subtotalPrice']+session('cart')['coupons'])*(session('taxrate')/100) : $cart->calTaxes($request->tax_id);
+       
+       
     }
 
     /**

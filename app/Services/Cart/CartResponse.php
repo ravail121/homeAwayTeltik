@@ -425,12 +425,12 @@ class CartResponse extends CustomerController
         }
         //Devices
         $devices        = $this->addTaxesDevices($cart, $cart['device'], $taxPercentage);
-       // dd($devices);
+        //dd($devices);
         //Sims
         $sims           = $this->addTaxesSims($cart, $cart['sim'], $taxPercentage);
-        //Plans
+        //dd($sims);
         $plans          = $this->addTaxesToPlans($cart, $cart['plan'], $taxPercentage);
-
+//dd($plans);
         //Addons
         $addons         = $this->addTaxesToAddons($cart, $taxPercentage);
         return $devices + $sims + $plans + $addons;
@@ -472,7 +472,7 @@ class CartResponse extends CustomerController
            
             if (session('couponAmount')) {
                 $discounted = $this->getCouponPrice(session('couponAmount'), $item, 2);
-                //dd(session('couponAmount'));
+               // dd($discounted);
                 $amount = $amount > $discounted ? $amount - $discounted : 0;
             }
             $itemTax[] = $taxPercentage * $amount;
@@ -632,8 +632,10 @@ class CartResponse extends CustomerController
     protected function getCouponPrice($couponData, $item, $itemType)
     {
         $productDiscount = 0;
-        $dataArray=[];
+        
+       // dd($couponData);
         foreach($couponData as $coupon) {
+            $dataArray=[];
             $type = $coupon[ 'coupon_type' ];
             if ( $type == 1 ) { // Applied to all
                 $appliedTo = $coupon[ 'applied_to' ][ 'applied_to_all' ];

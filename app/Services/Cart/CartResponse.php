@@ -361,6 +361,7 @@ class CartResponse extends CustomerController
         }
        // dd($this->cartItems['order_groups']);
         $taxes = ($this->taxes) ? array_sum($this->taxes) : 0;
+        $taxes=round($taxes,2);
         $taxId ? session(['tax_total' => $taxes]) : session(['tax_total' => 0]);
         $taxId ? $this->totalPrice() : null; // to add tax to total without refresh
         return $taxes;
@@ -424,6 +425,7 @@ class CartResponse extends CustomerController
             return $plans + $addons;
         }
         //Devices
+       // dd($cart['device']);
         $devices        = $this->addTaxesDevices($cart, $cart['device'], $taxPercentage);
         //dd($devices);
         //Sims
@@ -433,6 +435,7 @@ class CartResponse extends CustomerController
 //dd($plans);
         //Addons
         $addons         = $this->addTaxesToAddons($cart, $taxPercentage);
+       // dd($devices + $sims + $plans + $addons);
         return $devices + $sims + $plans + $addons;
     }
 

@@ -355,14 +355,13 @@ class CartResponse extends CustomerController
             if (count($this->cartItems['order_groups'])) {
                 foreach ($this->cartItems['order_groups'] as $cart) {
                     
-                    $this->taxes[] = $this->calTaxableItems($cart, $taxId);
+                    $this->taxes[] = number_format($this->calTaxableItems($cart, $taxId), 2);
                 }
             }
         }
        // dd($this->cartItems['order_groups']);
         $taxes = ($this->taxes) ? array_sum($this->taxes) : 0;
         $taxes=round($taxes,2);
-        
         $taxId ? session(['tax_total' => $taxes]) : session(['tax_total' => 0]);
         $taxId ? $this->totalPrice() : null; // to add tax to total without refresh
         return $taxes;

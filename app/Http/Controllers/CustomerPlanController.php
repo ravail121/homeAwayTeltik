@@ -23,15 +23,18 @@ class CustomerPlanController extends Controller
         $customer     = $this->requestConnectionForCustomer('customer');
         $slug = array_column($customer['company']['carrier'], 'slug');
         $subcriptions = $this->requestConnectionForCustomer('customer-subscriptions');
+        
         if($subcriptions === 'Failed'){
             $subcriptions = null;
             $usages = null;
         }else{
             $usages = $this->getUsages($subcriptions['customer-plans']);
-            if($usages === 'Failed'){
+           
+            if(!$usages){
                 $usages = null;
             }
         }
+        
         $daysUntilAutoPay = Carbon::today()->diffInDays(Carbon::parse($customer['billing_end'])->subDays(1));
         return view('customer.plan-details', compact('subcriptions', 'customer', 'states',
             'daysUntilAutoPay', 'usages', 'slug'));
@@ -179,44 +182,22 @@ class CustomerPlanController extends Controller
         $cycle_response = $this->requestUltraMobileConnection('cycles' , 'get');
         $current_cycle_id = null;
         foreach ($subscriptions as $subscription){
-            $cycles = [];
-            $subscription_id = (int)$subscription['id'];
-            $current_cycle_id = null;
-            if ($cycle_response!="Failed") {
-                $subscription_start_date = Carbon::parse($subscription['activation_date']);
-                $current_date_time = Carbon::now();
-                $_cycle_data = $cycle_response['data'];
-                $cycle_total = count($_cycle_data);
-                for($i=0; $i < $cycle_total; $i++){
-                    $start_date =Carbon::parse($_cycle_data[$i]['start_date']);
-                    $end_date =Carbon::parse($_cycle_data[$i]['end_date']);
-                    if($current_date_time->greaterThanOrEqualTo($start_date) && $current_date_time->lessThanOrEqualTo($end_date)){
-                        $current_cycle_id = $_cycle_data[$i]['id'];
-                    }
-                    if($current_date_time->greaterThanOrEqualTo($start_date) && $end_date->greaterThanOrEqualTo($subscription_start_date))
-                    {
-                        $cycles[$_cycle_data[$i]['id']] = $start_date->format('Y-m-d') . " - " . $end_date->format('Y-m-d');
-                        continue;
-                    }
-                    if($current_date_time->lessThan($end_date)){
-                        break;
-                    }
+
+             $subscription_id = (int)$subscription['id'];
+                $arr['sim_card_num']=$subscription['sim_card_num'];
+                $usageData=$this->requestConnection('check2' , 'post', $arr);
+                if(isset($usageData['data']) && $usageData['data']) {
+
+                    $usages[$subscription_id]=[
+                        'data'      => $usageData['data'],
+                        'voice'     => $usageData['voice'],
+                        'sms'      => $usageData['sms'],
+                    ];
+
                 }
-            }
-            $parameters = [
-                'subscription_id'    => $subscription_id,
-                'cycle_id'          => $current_cycle_id
-            ];
-            $usageData = $this->requestUltraMobileConnection('usages/' , 'post', $parameters);
-            if(isset($usageData['success']) && $usageData['success']) {
-                $usages[$subscription_id] = [
-                    'data'      => $usageData['data']['data_log_callVolume'],
-                    'voice'     => $usageData['data']['voice_log_callDuration'],
-                    'text'      => $usageData['data']['phone_number_texts'],
-                ];
-            }
-            $usages[$subscription_id]['current_cycle_id'] = $current_cycle_id;
-            $usages[$subscription_id]['cycles' ]= $cycles;
+
+               
+   
         }
         return $usages;
     }

@@ -85,15 +85,15 @@
                                                     <dl>
                                                         <table class="usages">
                                                             <tr>
-                                                                <th>Data Usage</th>
+                                                            <th>Data Usage (GB)</th>
                                                                 <th class="voice-usage">Voice Usage</th>
                                                                 <th>Text Usage</th>
                                                             </tr>
                                                             @if ($usages && array_key_exists('id', $subcription) && array_key_exists($subcription['id'], $usages ))
                                                                 <tr>
-                                                                    <th>{{ number_format($usages[$subcription['id']]['data'], 2) }}</th>
-                                                                    <th>{{ number_format($usages[$subcription['id']]['voice'], 2) }}</th>
-                                                                    <th>{{ number_format($usages[$subcription['id']]['text']) }}</th>
+                                                                <th>{{ number_format($usages[$subcription['id']]['data']/1024,2) }}</th>
+                                                                    <th>{{ $usages[$subcription['id']]['voice'] }}</th>
+                                                                    <th>{{ $usages[$subcription['id']]['sms'] }}</th>
                                                                 </tr>
                                                             @else
                                                                 <tr>

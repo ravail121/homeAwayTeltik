@@ -89,7 +89,9 @@
                                                                 <th class="voice-usage">Voice Usage</th>
                                                                 <th>Text Usage</th>
                                                             </tr>
+
                                                             @if ($usages && array_key_exists('id', $subcription) && array_key_exists($subcription['id'], $usages ))
+                                                            Last Updated {{$usages[$subcription['id']]['last_updated']}}
                                                                 <tr>
                                                                 <th>{{ number_format($usages[$subcription['id']]['data']/1024,2) }}</th>
                                                                     <th>{{ $usages[$subcription['id']]['voice'] }}</th>

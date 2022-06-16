@@ -192,6 +192,7 @@ class CustomerPlanController extends Controller
                         'data'      => $usageData['data'],
                         'voice'     => $usageData['voice'],
                         'sms'      => $usageData['sms'],
+                        'last_updated'=> $usageData['updated_at']
                     ];
 
                 }

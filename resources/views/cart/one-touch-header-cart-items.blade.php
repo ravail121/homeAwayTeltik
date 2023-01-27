@@ -1,5 +1,5 @@
 <div class="col-md-2 col-sm-12 col-xs-12 pull-right header_cart">
-	<div id="cart-drop">
+	<div id="cart-drop" style="width:370; max-height: 400px; overflow-y: scroll;">
 {{--		<a href="#" class="btn style1 btn-cart">--}}
 {{--			<i class="fa fa-shopping-cart"></i>--}}
 {{--            Your Cart {{ session('cart') ? '('.count(session('cart')['order_groups']).')' : '' }}--}}

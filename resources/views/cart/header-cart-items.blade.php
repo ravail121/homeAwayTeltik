@@ -4,7 +4,7 @@
 			<i class="fa fa-shopping-cart"></i>
             <span class="cart-counter">{{ session('cart') ? count(session('cart')['order_groups']) : 0 }}</span>
 		</a>
-		<div class="drop-con">
+		<div class="drop-con"  style="width:370; max-height: 400px; overflow-y: scroll;">
             <strong>Selected Items</strong>
 			<ul class="cart-list">
                 @if(session('cart'))

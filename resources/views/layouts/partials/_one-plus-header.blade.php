@@ -102,6 +102,9 @@
     <!-- Navigation Bar -->
     <nav
         class="navbar navbar-expand-lg py-4 align-items-center position-fixed w-100"
+        style="-webkit-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
+        z-index: 9999999999999999999999999 !important;"
     >
         <div class="container navbar-container">
             <!-- Logo -->
